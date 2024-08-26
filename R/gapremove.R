@@ -21,6 +21,7 @@
 #' ## Remove positions with gap >= 60% and reads/sequences with gap >= 10%----------------------------
 #' gapremove(fastafilepath, vgappct = 60, hgappct = 10, fastaname = outfast)
 #'
+#' @name gapremove
 
 gapremove <- function(fasta, vgappct = 70, hgappct = 70, fastaname = "filteredfast.fasta"){
   dss2df <- function(dss) data.frame(width=width(dss), seq=as.character(dss), names=names(dss))

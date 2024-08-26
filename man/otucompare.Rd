@@ -9,13 +9,13 @@ otucompare(samplelist = list(BC1, BC2, BC3), kmeans.n = 20)
 \arguments{
 \item{samplelist}{List of samples, i.e., name of resulting objects from "vqsassess" or "vqscustompct" functions, for example list(BC1, BC2, BC3).}
 
-\item{kmeans.n}{Number of clusters or operational taxonomic units (OTUs) needed from k-means clustering on multidimensional scale (MDS) of all samples' pairwise genetic distance.}
+\item{kmeans.n}{Number of operational taxonomic units (OTUs) needed from k-means clustering on multidimensional scale (MDS) of all samples' pairwise genetic distance.}
 }
 \value{
 Comparative table of OTU diversity metrics between listed samples calculated from consensus sequence of each OTU by QSutils package
 }
 \description{
-Pools error-minimized down-sampled read samples and compares their diversity based on operational taxonomic unit (OTU) classified by k-means clustering of single nucleotide variant (SNV) distance. This function is a subset of "vqscompare" function.
+Pools noise-minimized down-sampled read samples and compares their diversity based on operational taxonomic unit (OTU) classified by k-means clustering of single nucleotide variant (SNV) distance. This function is a subset of "vqscompare" function.
 }
 \examples{
 ## Locate input FASTA files-----------------------------------------------------------------------
@@ -26,7 +26,7 @@ sample2filepath <- system.file("extdata", "s2.fasta", package = "longreadvqs")
 sample1 <- vqsassess(sample1filepath, pct = 10, samsize = 20, label = "sample1")
 sample2 <- vqsassess(sample2filepath, pct = 10, samsize = 20, label = "sample2")
 
-## Compare OTU (4 clusters) diversity metrics  between two samples--------------------------------
+## Compare OTU (4 clusters) diversity metrics between two samples---------------------------------
 otucompare(samplelist = list(sample1, sample2), kmeans.n = 4)
 
 }

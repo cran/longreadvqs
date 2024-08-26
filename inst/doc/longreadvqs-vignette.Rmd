@@ -1,11 +1,13 @@
 ---
 title: "Comparing viral quasispecies with longreadvqs"
 author: "Nakarin Pamornchainavakul, DVM, PhD"
-output: rmarkdown::html_vignette
+output:
+  html_document: default
+  github_document: default
 vignette: >
   %\VignetteIndexEntry{longreadvqs-vignette}
-  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
 ---
 
 ```{r, include = FALSE}
@@ -21,11 +23,11 @@ knitr::opts_chunk$set(
 
 ## Individual sample preparation
 
-### Sequencing error minimization and down-sampling
+### Sequencing error/noise minimization and down-sampling
 
-Sequencing errors create plenty of artificial single nucleotide variants (SNVs), leading to an overestimated number of singleton haplotypes (haplotype = group of identical reads, singleton haplotype = haplotype with only a single read). Our package aims to minimize potential sequencing errors defined as SNV(s) or nucleotide base(s) with a frequency less than n % at each nucleotide position. Such problematic base(s) will be replaced with the consensus or majority base of that particular position.
+Sequencing errors create plenty of artificial single nucleotide variants (SNVs), leading to an overestimated number of singleton haplotypes (haplotype = group of identical reads, singleton haplotype = haplotype with only a single read). Our package aims to minimize potential sequencing errors and potential noises from rare mutations along long reads defined as SNV(s) or nucleotide base(s) with a frequency less than n % at each nucleotide position. Such problematic base(s) will be replaced with the consensus or majority base of that particular position.
 
-First, load the "longreadvqs" package and a FASTA file of example read alignment (sample1.fasta). To choose the % cut-off for error minimization, use the "pctopt" function that shows % singleton haplotypes in the read alignment across different % cut-offs. Then, use the "vqssub" function for error minimization, in this case, we choose a 10% cut-off that decreases singleton haplotypes to less than 10% of all reads. This function will give a summary of VQS diversity metrics calculated by the "QSutils" package ([Gregori, et al., 2016](https://doi.org/10.1016/j.virol.2016.03.017)) after error minimization.
+First, load the "longreadvqs" package and a FASTA file of example read alignment (sample1.fasta). To choose the % cut-off for noise minimization, use the "pctopt" function that shows % singleton haplotypes in the read alignment across different % cut-offs. Then, use the "vqssub" function for noise minimization, in this case, we choose a 10% cut-off that decreases singleton haplotypes to less than 10% of all reads. This function will give a summary of VQS diversity metrics calculated by the "QSutils" package ([Gregori, et al., 2016](https://doi.org/10.1016/j.virol.2016.03.017)) after noise minimization.
 
 ```{r setup, warning=FALSE, message=FALSE}
 library(longreadvqs)
@@ -35,28 +37,28 @@ library(ggplot2)
 sample1 <- system.file("extdata", "sample1.fasta", package = "longreadvqs")
 ```
 ```{r fig0, warning=FALSE, fig.height = 3, fig.width = 7.2, fig.align = "center"}
-#Check which % cut-off could effectively minimize errors by assessing % singleton haplotypes.
+#Check which % cut-off could effectively minimize noises by assessing % singleton haplotypes.
 x <- pctopt(sample1, pctsing = 0, label = "sample1")
 ggplot(x, aes(x=pct, y=pctsingleton)) + geom_line() + geom_point()
 ```
 ```{r cmd0, warning=FALSE, message=FALSE}
-#VQS diversity metrics of error minimized (10% cut-off) read alignment
+#VQS diversity metrics of noise minimized (10% cut-off) read alignment
 vqssub(sample1, pct = 10, label = "sample1")
 ```
 
-To compare VQS diversity across samples, it's important to standardize the read alignment depth. Since sequencing results can vary, we perform down-sampling after minimizing errors with the "vqssub" function. In our case, for sample1, sample2, and sample3 with original depths of 311, 316, and 655, respectively, we randomly down-sample them to a common depth of 300.
+To compare VQS diversity across samples, it's important to standardize the read alignment depth. Since sequencing results can vary, we perform down-sampling after minimizing noises with the "vqssub" function. In our case, for sample1, sample2, and sample3 with original depths of 311, 316, and 655, respectively, we randomly down-sample them to a common depth of 300.
 
 ```{r cmd1, warning=FALSE, message=FALSE}
 #Load samples 2 and 3.
 sample2 <- system.file("extdata", "sample2.fasta", package = "longreadvqs")
 sample3 <- system.file("extdata", "sample3.fasta", package = "longreadvqs")
 
-#Error minimization (10% cut-off) and down-sampling (depth of 300)
+#Noise minimization (10% cut-off) and down-sampling (depth of 300)
 a <- vqssub(sample1, pct = 10, samsize = 300, label = "sample1")
 b <- vqssub(sample2, pct = 10, samsize = 300, label = "sample2")
 c <- vqssub(sample3, pct = 10, samsize = 300, label = "sample3")
 
-#Compare VQS diversity across three samples after error minimization and down-sampling.
+#Compare VQS diversity across three samples after Noise minimization and down-sampling.
 rbind(a, b, c)
 ```
 
@@ -98,9 +100,9 @@ From this plot, the number of haplotypes obviously decreases as the depth decrea
 
 ### VQS data preparation for in-depth comparison
 
-The previous "vqssub" function just summarizes key VQS diversity metrics after error minimization and down-sampling. However, these metrics do not provide us with comprehensive data for further comparative analyses, such as SNV positions and full read alignment after down-sampling. The "vqsassess" function will generate a complete VQS profile for each sample, and the outputs can be used for other functions.
+The previous "vqssub" function just summarizes key VQS diversity metrics after noise minimization and down-sampling. However, these metrics do not provide us with comprehensive data for further comparative analyses, such as SNV positions and full read alignment after down-sampling. The "vqsassess" function will generate a complete VQS profile for each sample, and the outputs can be used for other functions.
 
-In this example, we repeat error minimization and down-sampling for samples 1-3 but apply the "vqsassess" function instead of the "vqssub" function. We then compare the SNV profiles between these samples using the "snvcompare" function.
+In this example, we repeat noise minimization and down-sampling for samples 1-3 but apply the "vqsassess" function instead of the "vqssub" function. We then compare the SNV profiles between these samples using the "snvcompare" function.
 
 ```{r cmd3, warning=FALSE, message=FALSE}
 #Generate complete VQS data for further comparison for each sample.
@@ -125,7 +127,7 @@ s4 <- vqsassess(sample4, pct = 10, samsize = 300, label = "sample4")
 s4$snv
 ```
 
-The plot above captures atypical SNVs towards the 3' end of the sample 4 alignment, which is potentially caused by sequencing error. We can address this issue using the "vqscustompct" function, which allows us to adjust the % cut-off for error minimization at specific range(s) in the alignment. In the case of sample 4, we increase the % cut-off from position 972 onward, raising it from 10% to 30%.
+The plot above captures atypical SNVs towards the 3' end of the sample 4 alignment, which is potentially caused by sequencing error. We can address this issue using the "vqscustompct" function, which allows us to adjust the % cut-off for noise minimization at specific range(s) in the alignment. In the case of sample 4, we increase the % cut-off from position 972 onward, raising it from 10% to 30%.
 
 ```{r cmd5, warning=FALSE, message=FALSE}
 #Use "vqscustompct" function to increase % cut-off after position 972 to 30%.
@@ -139,7 +141,7 @@ s4_fix$snv
 
 ## Comparing VQS diversity across multiple samples
 
-Once we have all samples prepared, we can combine them to not only compare within-sample diversity but also explore between-sample relationships. Using the "vqscompare" function, error-minimized down-sampled reads from all samples are pooled to identify 1) identical haplotypes and 2) genetically closely related haplotypes between samples. In this example, we combine the previously prepared outputs of samples 1 to 4 into the "vqscompare" function, allowing it to generate a summary comparative plot.
+Once we have all samples prepared, we can combine them to not only compare within-sample diversity but also explore between-sample relationships. Using the "vqscompare" function, noise-minimized down-sampled reads from all samples are pooled to identify 1) identical haplotypes and 2) genetically closely related haplotypes between samples. In this example, we combine the previously prepared outputs of samples 1 to 4 into the "vqscompare" function, allowing it to generate a summary comparative plot.
 
 ```{r cmd6, warning=FALSE, message=FALSE}
 #List outputs from "vqsassess" or "vqscustompct" that we want to compare into "vqscompare" function.
@@ -156,3 +158,7 @@ comp$summaryplot
 The summary plot comprises four main subplots. First, the haplotype plot at the top left displays all unique haplotypes and their proportions across all samples. Second, the operational taxonomic unit (OTU) plot at the bottom left groups genetically closely related haplotypes into new OTUs through k-means clustering on a multidimensional scale (MDS) of all samples' pairwise SNV distances. Third, the MDS plot at the top right visualizes the genetic relationships and clustering scheme of the five largest OTUs and haplotypes belonging to each OTU. Fourth, the MDS plot at the bottom right shows all classified OTUs.
 
 In our example, samples 1 to 4 represent read alignments of the influenza A virus (IAV)'s M segment, gathered from patients in the same ward ([Williams, et al., 2023](https://doi.org/10.1099/mgen.0.001083)). Based on our comparison, patients of samples 1 and 2 likely contracted the same virus, as evidenced by the similarity in both VQS haplotype profiles and OTU profiles. Meanwhile, patients of samples 3 and 4 appear to have been infected with distinct sets of viruses, differing from each other and from those in samples 1 and 2. Despite these distinctions, the MDS plots indicate that the genetic distances between all samples are not significantly far apart. This suggests that these diversities may not be adequately captured at the consensus gene level.
+
+## Citation
+
+https://doi.org/10.21203/rs.3.rs-4637890/v1

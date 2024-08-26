@@ -21,3 +21,15 @@ CHANGES IN VERSION 0.1.2
 	  - Description file correction
 	    · Abbreviation explained
 	  - Unnecessary print() in all functions removed
+	  
+CHANGES IN VERSION 0.1.3
+==========================
+
+	Internal changes:
+	-----------------
+	  - An option to compare viral quasispecies at amino acid level was added to
+  "vqscompare" function ("proteincoding" and "removestopcodon" arguments).
+	  - "AAcompare" function added to the package
+	  - Documentations updated
+	  - Reference in the DESCRIPTION file updated
+	  - Github link in README.md fixed

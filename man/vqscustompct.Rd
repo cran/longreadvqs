@@ -2,13 +2,13 @@
 % Please edit documentation in R/vqscustompct.R
 \name{vqscustompct}
 \alias{vqscustompct}
-\title{Sequencing error minimization with customized \% cut-off at particular nucleotide region, read down-sampling, and data preparation for viral quasispecies comparison}
+\title{Sequencing error and noise minimization with customized \% cut-off at particular nucleotide region, read down-sampling, and data preparation for viral quasispecies comparison}
 \arguments{
 \item{fasta}{Input as a read alignment in FASTA format}
 
-\item{method}{Sequencing error minimization methods that replace low frequency nucleotide base (less than the "pct" cut-off) with consensus base of that position ("conbase": default) or with base of the dominant haplotype ("domhapbase").}
+\item{method}{Sequencing error and noise minimization methods that replace low frequency nucleotide base (less than the "pct" cut-off) with consensus base of that position ("conbase": default) or with base of the dominant haplotype ("domhapbase").}
 
-\item{samplingfirst}{Downsampling before (TRUE) or after (FALSE: default) the error minimization.}
+\item{samplingfirst}{Downsampling before (TRUE) or after (FALSE: default) the noise minimization.}
 
 \item{pct}{Percent cut-off defining low frequency nucleotide base that will be replaced (must be specified).}
 
@@ -25,10 +25,10 @@
 \item{label}{String within quotation marks indicating name of read alignment (optional). Please don't use underscore (_) in the label.}
 }
 \value{
-list of 1) "dat": viral quasispecies diversity metrics calculated by QSutils package (similar to "vqssub" function's output), 2) "snvhap": SNV profile of each haplotype with frequency and new label for "vqscompare" function, 3) "snv": plot of SNV frequency for "snvcompare" function, 4) "hapre": DNAStringSet of read alignment of each haplotype for "vqscompare" function, 5) "lab": name of sample or read alignment
+List of 1) "dat": viral quasispecies diversity metrics calculated by QSutils package (similar to "vqssub" function's output), 2) "snvhap": SNV profile of each haplotype with frequency and new label for "vqscompare" function, 3) "snv": plot of SNV frequency for "snvcompare" function, 4) "hapre": DNAStringSet of read alignment of each haplotype for "vqscompare" function, 5) "lab": name of sample or read alignment
 }
 \description{
-Minimizes potential long-read sequencing error based on the specified cut-off percentages of low frequency nucleotide base and down-samples read for further comparison with other samples. In this function, the cut-off percentage can be specifically adjusted for different ranges of nucleotide positions which is very useful when sequencing error heavily occurs in a particular part of reads. The output of this function is a list of several objects representing diversity of each sample that must be used as an input for other functions such as "snvcompare" or "vqscompare".
+Minimizes potential long-read sequencing error and noise based on the specified cut-off percentages of low frequency nucleotide base and down-samples read for further comparison with other samples. In this function, the cut-off percentage can be specifically adjusted for different ranges of nucleotide positions which is very useful when sequencing error heavily occurs in a particular part of reads. The output of this function is a list of several objects representing diversity of each sample that must be used as an input for other functions such as "snvcompare" or "vqscompare".
 }
 \examples{
 ## Locate input FASTA file------------------------------------------------------------------------

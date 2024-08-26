@@ -2,13 +2,13 @@
 % Please edit documentation in R/vqssub.R
 \name{vqssub}
 \alias{vqssub}
-\title{Computing viral quasispecies diversity metrics of error-minimized down-sampled read alignment}
+\title{Computing viral quasispecies diversity metrics of noise-minimized down-sampled read alignment}
 \arguments{
 \item{fasta}{Input as a read alignment in FASTA format}
 
-\item{method}{Sequencing error minimization methods that replace low frequency nucleotide base (less than the "pct" cut-off) with consensus base of that position ("conbase": default) or with base of the dominant haplotype ("domhapbase").}
+\item{method}{Sequencing error and noise minimization methods that replace low frequency nucleotide base (less than the "pct" cut-off) with consensus base of that position ("conbase": default) or with base of the dominant haplotype ("domhapbase").}
 
-\item{samplingfirst}{Downsampling before (TRUE) or after (FALSE: default) the error minimization.}
+\item{samplingfirst}{Downsampling before (TRUE) or after (FALSE: default) the noise minimization.}
 
 \item{pct}{Percent cut-off defining low frequency nucleotide base that will be replaced (must be specified).}
 
@@ -21,25 +21,25 @@
 \item{label}{String within quotation marks indicating name of read alignment (optional).}
 }
 \value{
-Data frame containing all viral quasispecies diversity metrics calculated by QSutils package, error minimization, and down-sampling information.
+Data frame containing all viral quasispecies diversity metrics calculated by QSutils package, noise minimization, and down-sampling information.
 }
 \description{
-Minimizes potential long-read sequencing error based on the specified cut-off percentage of low frequency nucleotide base and down-samples read for further comparison with other samples. The output of this function is a summary of viral quasispecies diversity metrics calculated by QSutils package's functions. This function is a subset of "vqsassess" function.
+Minimizes potential long-read sequencing error and noise based on the specified cut-off percentage of low frequency nucleotide base and down-samples read for further comparison with other samples. The output of this function is a summary of viral quasispecies diversity metrics calculated by QSutils package's functions. This function is a subset of "vqsassess" function.
 }
 \examples{
 ## Locate input FASTA file-------------------------------------------------------------------------
 fastafilepath <- system.file("extdata", "s1.fasta", package = "longreadvqs")
 
 ## Summarize viral quasispecies diversity metrics--------------------------------------------------
-# From error-minimized unsampled reads (10\% cut-off):
+# From noise-minimized unsampled reads (10\% cut-off):
 vqssub(fastafilepath, pct = 10, label = "sample1")
-# From error-minimized sampled reads (n = 20):
+# From noise-minimized sampled reads (n = 20):
 vqssub(fastafilepath, pct = 10, samsize = 20, label = "sample1")
-# From error-minimized sampled reads with 50\% cut-off for gap:
+# From noise-minimized sampled reads with 50\% cut-off for gap:
 vqssub(fastafilepath, pct = 10, gappct = 50, samsize = 20, label = "sample1")
-# From error-minimized sampled reads but ignore positions with gap:
+# From noise-minimized sampled reads but ignore positions with gap:
 vqssub(fastafilepath, pct = 10, ignoregappositions = TRUE, samsize = 20, label = "sample1")
-# From reads that were down-sampled before error minimization:
+# From reads that were down-sampled before noise minimization:
 vqssub(fastafilepath, pct = 10, samplingfirst = TRUE, samsize = 20, label = "sample1")
 
 }

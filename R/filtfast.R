@@ -27,6 +27,7 @@
 #' ## Remove reads/sequences that the similarity < 1st quartile (0.25 quantile)-----------------------
 #' filtfast(fastafilepath, qt = 0.25, fastaname = outfast)
 #'
+#' @name filtfast
 
 filtfast <- function(fasta, qt = 0.25, fastaname = "filteredfast.fasta"){
   dss2df <- function(dss) data.frame(width= Biostrings::width(dss), seq=as.character(dss), names=names(dss))

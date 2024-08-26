@@ -1,7 +1,7 @@
 #' Plotting single nucleotide variant (SNV) frequency in read alignment across different samples
 #'
 #' @description
-#' Compares single nucleotide variant (SNV) profile between error-minimized down-sampled read samples using cowplot's "plot_grid" function. The resulting plot may help evaluating the optimal cut-off percentage of low frequency nucleotide base used in "vqsassess", "vqscustompct", or "vqssub" functions.
+#' Compares single nucleotide variant (SNV) profile between noise-minimized down-sampled read samples using cowplot's "plot_grid" function. The resulting plot may help evaluating the optimal cut-off percentage of low frequency nucleotide base used in "vqsassess", "vqscustompct", or "vqssub" functions.
 #'
 #' @param samplelist List of samples, i.e., name of resulting objects from "vqsassess" or "vqscustompct" functions, for example list(BC1, BC2, BC3).
 #' @param ncol Number of columns for multiple plots (see cowplot's "plot_grid" function)

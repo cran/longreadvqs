@@ -12,12 +12,12 @@ library(ggplot2)
 sample1 <- system.file("extdata", "sample1.fasta", package = "longreadvqs")
 
 ## ----fig0, warning=FALSE, fig.height = 3, fig.width = 7.2, fig.align = "center"----
-#Check which % cut-off could effectively minimize errors by assessing % singleton haplotypes.
+#Check which % cut-off could effectively minimize noises by assessing % singleton haplotypes.
 x <- pctopt(sample1, pctsing = 0, label = "sample1")
 ggplot(x, aes(x=pct, y=pctsingleton)) + geom_line() + geom_point()
 
 ## ----cmd0, warning=FALSE, message=FALSE---------------------------------------
-#VQS diversity metrics of error minimized (10% cut-off) read alignment
+#VQS diversity metrics of noise minimized (10% cut-off) read alignment
 vqssub(sample1, pct = 10, label = "sample1")
 
 ## ----cmd1, warning=FALSE, message=FALSE---------------------------------------
@@ -25,12 +25,12 @@ vqssub(sample1, pct = 10, label = "sample1")
 sample2 <- system.file("extdata", "sample2.fasta", package = "longreadvqs")
 sample3 <- system.file("extdata", "sample3.fasta", package = "longreadvqs")
 
-#Error minimization (10% cut-off) and down-sampling (depth of 300)
+#Noise minimization (10% cut-off) and down-sampling (depth of 300)
 a <- vqssub(sample1, pct = 10, samsize = 300, label = "sample1")
 b <- vqssub(sample2, pct = 10, samsize = 300, label = "sample2")
 c <- vqssub(sample3, pct = 10, samsize = 300, label = "sample3")
 
-#Compare VQS diversity across three samples after error minimization and down-sampling.
+#Compare VQS diversity across three samples after Noise minimization and down-sampling.
 rbind(a, b, c)
 
 ## ----cmd2, warning=FALSE, message=FALSE---------------------------------------

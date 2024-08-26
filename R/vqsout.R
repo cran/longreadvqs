@@ -28,13 +28,13 @@
 #' ## Export Key outputs from "vqscompare" function--------------------------------------------------
 #' notrun <- vqsout(comp, directory = tempdir())
 #'
+#' @name vqsout
 
 vqsout <- function(vqscompare.obj, directory = "path/to/directory"){
   if(missing(directory)) {
     write.table(vqscompare.obj$hapdiv, file = "hap_div.tsv", sep = '\t', row.names = FALSE, quote = FALSE)
     write.table(vqscompare.obj$otudiv, file = "otu_div.tsv", sep = '\t', row.names = FALSE, quote = FALSE)
-    write.table(vqscompare.obj$sumsnv_hap, file = "snv_hap.tsv", sep = '\t', row.names = FALSE, quote = FALSE)
-    write.table(vqscompare.obj$sumsnv_otu, file = "snv_otu.tsv", sep = '\t', row.names = FALSE, quote = FALSE)
+    write.table(vqscompare.obj$sumsnv_hap_otu, file = "snv_hap_otu.tsv", sep = '\t', row.names = FALSE, quote = FALSE)
     write.table(vqscompare.obj$fulldata, file = "fulldata.tsv", sep = '\t', row.names = FALSE, quote = FALSE)
     writeFasta<-function(data, filename){
       fastaLines = c()
@@ -47,11 +47,27 @@ vqsout <- function(vqscompare.obj, directory = "path/to/directory"){
       close(fileConn)
     }
     writeFasta(vqscompare.obj$fullseq, "fullseq.fasta")
+    if(length(vqscompare.obj) > 10){
+      write.table(vqscompare.obj$aadiv, file = "phap_div.tsv", sep = '\t', row.names = FALSE, quote = FALSE)
+      write.table(vqscompare.obj$savgrpdiv, file = "savgrp_div.tsv", sep = '\t', row.names = FALSE, quote = FALSE)
+      write.table(vqscompare.obj$sumsav_phap_savgrp, file = "sav_phap_savgrp.tsv", sep = '\t', row.names = FALSE, quote = FALSE)
+      write.table(vqscompare.obj$fulldata_aa, file = "fulldata_aa.tsv", sep = '\t', row.names = FALSE, quote = FALSE)
+      writeFasta<-function(data, filename){
+        fastaLines = c()
+        for (rowNum in 1:nrow(data)){
+          fastaLines = c(fastaLines, as.character(paste(">", data[rowNum,"AAgroup"], sep = "")))
+          fastaLines = c(fastaLines, as.character(data[rowNum,"seq"]))
+        }
+        fileConn<-file(filename)
+        writeLines(fastaLines, fileConn)
+        close(fileConn)
+      }
+      writeFasta(vqscompare.obj$fullseq_aa, "fullseq_aa.fasta")
+    }
   }else{
     write.table(vqscompare.obj$hapdiv, file = file.path(directory, paste("hap_div.tsv")), sep = '\t', row.names = FALSE, quote = FALSE)
     write.table(vqscompare.obj$otudiv, file = file.path(directory, paste("otu_div.tsv")), sep = '\t', row.names = FALSE, quote = FALSE)
-    write.table(vqscompare.obj$sumsnv_hap, file = file.path(directory, paste("snv_hap.tsv")), sep = '\t', row.names = FALSE, quote = FALSE)
-    write.table(vqscompare.obj$sumsnv_otu, file = file.path(directory, paste("snv_otu.tsv")), sep = '\t', row.names = FALSE, quote = FALSE)
+    write.table(vqscompare.obj$sumsnv_hap_otu, file = file.path(directory, paste("snv_hap_otu.tsv")), sep = '\t', row.names = FALSE, quote = FALSE)
     write.table(vqscompare.obj$fulldata, file = file.path(directory, paste("fulldata.tsv")), sep = '\t', row.names = FALSE, quote = FALSE)
     writeFasta<-function(data, filename){
       fastaLines = c()
@@ -64,7 +80,22 @@ vqsout <- function(vqscompare.obj, directory = "path/to/directory"){
       close(fileConn)
     }
     writeFasta(vqscompare.obj$fullseq, file.path(directory, paste("fullseq.fasta")))
+    if(length(vqscompare.obj) > 10){
+      write.table(vqscompare.obj$aadiv, file = file.path(directory, paste("phap_div.tsv")), sep = '\t', row.names = FALSE, quote = FALSE)
+      write.table(vqscompare.obj$savgrpdiv, file = file.path(directory, paste("savgrp_div.tsv")), sep = '\t', row.names = FALSE, quote = FALSE)
+      write.table(vqscompare.obj$sumsav_phap_savgrp, file = file.path(directory, paste("sav_phap_savgrp.tsv")), sep = '\t', row.names = FALSE, quote = FALSE)
+      write.table(vqscompare.obj$fulldata_aa, file = file.path(directory, paste("fulldata_aa.tsv")), sep = '\t', row.names = FALSE, quote = FALSE)
+      writeFasta<-function(data, filename){
+        fastaLines = c()
+        for (rowNum in 1:nrow(data)){
+          fastaLines = c(fastaLines, as.character(paste(">", data[rowNum,"AAgroup"], sep = "")))
+          fastaLines = c(fastaLines, as.character(data[rowNum,"seq"]))
+        }
+        fileConn<-file(filename)
+        writeLines(fastaLines, fileConn)
+        close(fileConn)
+      }
+      writeFasta(vqscompare.obj$fullseq_aa, file.path(directory, paste("fullseq_aa.fasta")))
+    }
   }
 }
-
-
