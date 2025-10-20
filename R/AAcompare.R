@@ -11,6 +11,11 @@
 #' @export
 #'
 #' @import dplyr
+#' @importFrom Biostrings readDNAStringSet
+#' @importFrom Biostrings DNAStringSet
+#' @importFrom Biostrings width
+#' @importFrom Biostrings nmismatch
+#' @importFrom pwalign pairwiseAlignment
 #' @importFrom stats as.dist
 #' @importFrom stats cmdscale
 #' @importFrom stats kmeans
@@ -178,7 +183,7 @@ AAcompare <- function(samplelist = list(BC1, BC2, BC3), kmeans.n = 20, removesto
     Mfe <- MutationFreq(dst)
     Pie <- NucleotideDiversity(dst)
     #Abundance-based (frequency)
-    nm <- nmismatch(pairwiseAlignment(hapresample$seqs,hapresample$seqs[1]))
+    nm <- nmismatch(pwalign::pairwiseAlignment(hapresample$seqs,hapresample$seqs[1]))
     Mfm <- MutationFreqVar(nm,hapresample$nr,len=width(hapresample$seqs)[1])
     Pim <- NucleotideDiversity(dst,hapresample$nr)
     nsingleton <- sum(hapresample$nr == 1)
@@ -229,7 +234,7 @@ AAcompare <- function(samplelist = list(BC1, BC2, BC3), kmeans.n = 20, removesto
     Mfe <- MutationFreq(dst)
     Pie <- NucleotideDiversity(dst)
     #Abundance-based (frequency)
-    nm <- nmismatch(pairwiseAlignment(hapresample$seqs,hapresample$seqs[1]))
+    nm <- nmismatch(pwalign::pairwiseAlignment(hapresample$seqs,hapresample$seqs[1]))
     Mfm <- MutationFreqVar(nm,hapresample$nr,len=width(hapresample$seqs)[1])
     Pim <- NucleotideDiversity(dst,hapresample$nr)
     nsingleton <- sum(hapresample$nr == 1)

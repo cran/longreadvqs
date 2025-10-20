@@ -19,7 +19,6 @@
 #' @importFrom Biostrings DNAStringSet
 #' @importFrom Biostrings width
 #' @importFrom Biostrings nmismatch
-#' @importFrom Biostrings pairwiseAlignment
 #' @importFrom seqinr read.alignment
 #' @importFrom seqinr as.alignment
 #' @importFrom seqinr consensus

@@ -4,7 +4,7 @@
 
 [![license](https://img.shields.io/badge/license-GPL--3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.en.html)
 [![](https://www.r-pkg.org/badges/version/longreadvqs?color=green)](https://cran.r-project.org/package=longreadvqs)
-[![](https://img.shields.io/badge/devel%20version-0.1.2-blue.svg)](https://github.com/NakarinP/longreadvqs)
+[![](https://img.shields.io/badge/devel%20version-0.1.4-blue.svg)](https://github.com/NakarinP/longreadvqs)
 [![](http://cranlogs.r-pkg.org/badges/grand-total/longreadvqs?color=blue)](https://cran.r-project.org/package=longreadvqs)
 
 

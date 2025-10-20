@@ -10,6 +10,11 @@
 #' @export
 #'
 #' @import dplyr
+#' @importFrom Biostrings readDNAStringSet
+#' @importFrom Biostrings DNAStringSet
+#' @importFrom Biostrings width
+#' @importFrom Biostrings nmismatch
+#' @importFrom pwalign pairwiseAlignment
 #' @importFrom stats as.dist
 #' @importFrom stats cmdscale
 #' @importFrom stats kmeans
@@ -121,7 +126,7 @@ otucompare <- function(samplelist = list(BC1, BC2, BC3), kmeans.n = 20){
     Mfe <- MutationFreq(dst)
     Pie <- NucleotideDiversity(dst)
     #Abundance-based (frequency)
-    nm <- nmismatch(pairwiseAlignment(hapresample$seqs,hapresample$seqs[1]))
+    nm <- nmismatch(pwalign::pairwiseAlignment(hapresample$seqs,hapresample$seqs[1]))
     Mfm <- MutationFreqVar(nm,hapresample$nr,len=width(hapresample$seqs)[1])
     Pim <- NucleotideDiversity(dst,hapresample$nr)
     d.otudiversity.i <- data.frame(label, depth, OTUs, polymorph, mutations, shannon, norm_shannon, gini_simpson, FAD, Mfe, Pie, Mfm, Pim)

@@ -19,7 +19,7 @@
 #' @importFrom Biostrings DNAStringSet
 #' @importFrom Biostrings width
 #' @importFrom Biostrings nmismatch
-#' @importFrom Biostrings pairwiseAlignment
+#' @importFrom pwalign pairwiseAlignment
 #' @importFrom seqinr read.alignment
 #' @importFrom seqinr as.alignment
 #' @importFrom seqinr consensus
@@ -212,7 +212,7 @@ vqssub <- function(fasta, method= c("conbase", "domhapbase"), samplingfirst = FA
     Mfe <- MutationFreq(dst)
     Pie <- NucleotideDiversity(dst)
     #Abundance-based (frequency)
-    nm <- nmismatch(pairwiseAlignment(hapre$seqs,hapre$seqs[1]))
+    nm <- nmismatch(pwalign::pairwiseAlignment(hapre$seqs,hapre$seqs[1]))
     Mfm <- MutationFreqVar(nm,hapre$nr,len=width(hapre$seqs)[1])
     Pim <- NucleotideDiversity(dst,hapre$nr)
 
@@ -382,7 +382,7 @@ vqssub <- function(fasta, method= c("conbase", "domhapbase"), samplingfirst = FA
     Mfe <- MutationFreq(dst)
     Pie <- NucleotideDiversity(dst)
     #Abundance-based (frequency)
-    nm <- nmismatch(pairwiseAlignment(hapre$seqs,hapre$seqs[1]))
+    nm <- nmismatch(pwalign::pairwiseAlignment(hapre$seqs,hapre$seqs[1]))
     Mfm <- MutationFreqVar(nm,hapre$nr,len=width(hapre$seqs)[1])
     Pim <- NucleotideDiversity(dst,hapre$nr)
 

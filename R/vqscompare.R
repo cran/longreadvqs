@@ -16,6 +16,11 @@
 #' @import RColorBrewer
 #' @import dplyr
 #' @import ggplot2
+#' @importFrom Biostrings readDNAStringSet
+#' @importFrom Biostrings DNAStringSet
+#' @importFrom Biostrings width
+#' @importFrom Biostrings nmismatch
+#' @importFrom pwalign pairwiseAlignment
 #' @importFrom stats aggregate
 #' @importFrom stats as.dist
 #' @importFrom stats cmdscale
@@ -346,7 +351,7 @@ vqscompare <- function(samplelist = list(BC1, BC2, BC3), lab_name = "sample name
     Mfe <- MutationFreq(dst)
     Pie <- NucleotideDiversity(dst)
     #Abundance-based (frequency)
-    nm <- nmismatch(pairwiseAlignment(hapresample$seqs,hapresample$seqs[1]))
+    nm <- nmismatch(pwalign::pairwiseAlignment(hapresample$seqs,hapresample$seqs[1]))
     Mfm <- MutationFreqVar(nm,hapresample$nr,len=width(hapresample$seqs)[1])
     Pim <- NucleotideDiversity(dst,hapresample$nr)
     nsingleton <- sum(hapresample$nr == 1)
@@ -416,7 +421,7 @@ vqscompare <- function(samplelist = list(BC1, BC2, BC3), lab_name = "sample name
       Mfe <- MutationFreq(dst)
       Pie <- NucleotideDiversity(dst)
       #Abundance-based (frequency)
-      nm <- nmismatch(pairwiseAlignment(hapresample$seqs,hapresample$seqs[1]))
+      nm <- nmismatch(pwalign::pairwiseAlignment(hapresample$seqs,hapresample$seqs[1]))
       Mfm <- MutationFreqVar(nm,hapresample$nr,len=width(hapresample$seqs)[1])
       Pim <- NucleotideDiversity(dst,hapresample$nr)
       nsingleton <- sum(hapresample$nr == 1)
@@ -467,7 +472,7 @@ vqscompare <- function(samplelist = list(BC1, BC2, BC3), lab_name = "sample name
       Mfe <- MutationFreq(dst)
       Pie <- NucleotideDiversity(dst)
       #Abundance-based (frequency)
-      nm <- nmismatch(pairwiseAlignment(hapresample$seqs,hapresample$seqs[1]))
+      nm <- nmismatch(pwalign::pairwiseAlignment(hapresample$seqs,hapresample$seqs[1]))
       Mfm <- MutationFreqVar(nm,hapresample$nr,len=width(hapresample$seqs)[1])
       Pim <- NucleotideDiversity(dst,hapresample$nr)
       nsingleton <- sum(hapresample$nr == 1)

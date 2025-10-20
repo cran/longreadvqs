@@ -33,3 +33,10 @@ CHANGES IN VERSION 0.1.3
 	  - Documentations updated
 	  - Reference in the DESCRIPTION file updated
 	  - Github link in README.md fixed
+	  
+CHANGES IN VERSION 0.1.4
+==========================
+
+	Internal changes:
+	-----------------
+	  - pairwiseAlignment() has moved from Biostrings to the pwalign package.
