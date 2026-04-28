@@ -8,7 +8,7 @@
 #' @param method Sequencing error and noise minimization methods that replace low frequency nucleotide base (less than the "pct" cut-off) with consensus base of that position ("conbase": default) or with base of the dominant haplotype ("domhapbase").
 #' @param samplingfirst Downsampling before (TRUE) or after (FALSE: default) the noise minimization.
 #' @param gappct The percent cut-off particularly specified for gap (-). If it is not specified or less than "pct", "gappct" will be equal to "pct" (default).
-#' @param ignoregappositions Replace all nucleotides in the positions in the alignment containing gap(s) with gap. This will make such positions no longer single nucleotide variant (SNV). The default is "FALSE".
+#' @param ignoregappositions Replace all nucleotides in the positions in the alignment containing gap(s) with gap. This will make such positions no longer single nucleotide variant (SNV). The default is "TRUE".
 #' @param samsize Sample size (number of reads) after down-sampling. If it is not specified or more than number of reads in the original alignment, down-sampling will not be performed (default).
 #' @param label String within quotation marks indicating name of read alignment (optional).
 #'
@@ -38,7 +38,7 @@
 
 utils::globalVariables("newcol")
 
-pctopt <- function(fasta, pctsing = 0, method= c("conbase", "domhapbase"), samplingfirst = FALSE, gappct = 50, ignoregappositions = FALSE, samsize = 100, label = "sample"){
+pctopt <- function(fasta, pctsing = 0, method= c("conbase", "domhapbase"), samplingfirst = FALSE, gappct = 50, ignoregappositions = TRUE, samsize = 100, label = "sample"){
   dss2df <- function(dss) data.frame(width=width(dss), seq=as.character(dss), names=names(dss))
   seq <- readDNAStringSet(fasta)
   seq2 <- read.alignment(file = fasta, format = "fasta")

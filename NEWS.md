@@ -40,3 +40,12 @@ CHANGES IN VERSION 0.1.4
 	Internal changes:
 	-----------------
 	  - pairwiseAlignment() has moved from Biostrings to the pwalign package.
+	  
+CHANGES IN VERSION 0.1.5
+==========================
+
+	Internal changes:
+	-----------------
+	  - Default setting of pctopt function has been changed from 
+	  ignoregappositions = FALSE to ignoregappositions = TRUE.
+	  - Citation of published paper of this package has been updated.

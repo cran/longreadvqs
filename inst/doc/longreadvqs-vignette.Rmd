@@ -161,4 +161,4 @@ In our example, samples 1 to 4 represent read alignments of the influenza A viru
 
 ## Citation
 
-https://doi.org/10.21203/rs.3.rs-4637890/v1
+Pamornchainavakul, N., Schroeder, D. C., & VanderWaal, K. (2026). QoALa: A comprehensive workflow for viral quasispecies diversity comparison using long-read sequencing data. PLOS Computational Biology, 22(4), e1014208. https://doi.org/10.1371/journal.pcbi.1014208

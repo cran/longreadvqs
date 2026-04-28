@@ -6,7 +6,7 @@
 \alias{longreadvqs-package}
 \title{longreadvqs: Viral Quasispecies Comparison from Long-Read Sequencing Data}
 \description{
-Performs variety of viral quasispecies diversity analyses [see Pamornchainavakul et al. (2024) \doi{10.21203/rs.3.rs-4637890/v1}] based on long-read sequence alignment. Main functions include 1) sequencing error and other noise minimization and read sampling, 2) Single nucleotide variant (SNV) profiles comparison, and 3) viral quasispecies profiles comparison and visualization.
+Performs variety of viral quasispecies diversity analyses [see Pamornchainavakul et al. (2026) \doi{10.1371/journal.pcbi.1014208}] based on long-read sequence alignment. Main functions include 1) sequencing error and other noise minimization and read sampling, 2) Single nucleotide variant (SNV) profiles comparison, and 3) viral quasispecies profiles comparison and visualization.
 }
 \seealso{
 Useful links:
